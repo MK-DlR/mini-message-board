@@ -1,37 +1,24 @@
 // app.js
 
 const express = require("express");
-
 // use express as app
 const app = express();
+// import the router
+const indexRouter = require("./routes/index");
 
 // register view engine
 app.set("view engine", "ejs");
 
-// listen for requests
-app.listen(3000);
+// middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
 
-// home page
-// with built in messages
-app.get("/", (req, res) => {
-  const messages = [
-    {
-      title: "title",
-      text: "text",
-      user: "user",
-      added: new Date().toLocaleDateString(),
-    },
-    {
-      title: "title2",
-      text: "text2",
-      user: "user2",
-      added: new Date().toLocaleDateString(),
-    },
-  ];
-  res.render("index", { title: "Home", messages: messages });
-});
+// use router for all routes
+app.use("/", indexRouter);
 
 // 404 page
 app.use((req, res) => {
   res.status(404).render("404", { title: "404" });
 });
+
+// listen for requests
+app.listen(3000);

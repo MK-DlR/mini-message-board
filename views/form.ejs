@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+<body>
+
+    <%- include("./partials/nav.ejs") %>
+
+    <div class="create-message content">
+        <form method="POST" action="/new">
+            <label for="title">Message Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="text">Message Text:</label>
+            <textarea id="text" name="text" required></textarea>
+            <label for="user">Username:</label>
+            <input type="text" id="user" name="user" required>
+            <button>Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

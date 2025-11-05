@@ -1,5 +1,7 @@
 11/5/25:
 
+- Create index.js and update index.ejs
+- Create new message form
 - Create 404 error page
 - Create basic navigation header template
 - Create filler messages to display on index

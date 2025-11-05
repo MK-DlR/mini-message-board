@@ -41,11 +41,13 @@ Done
                 <form method="POST" action="/new">
                     put your inputs and buttons in here!
                 </form>
+Done
 
 6. with form set up, clicking submit button should
     a. send POST request to the url specified by action attribute
     b. go back to index router
         b1. add "router.post()" for "/new"
+Done
 
 7. to get and use data from form
     a. will need to access contents of form 
