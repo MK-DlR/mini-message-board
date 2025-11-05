@@ -1,5 +1,6 @@
 11/5/25:
 
+- Add form submission functionality
 - Create index.js and update index.ejs
 - Create new message form
 - Create 404 error page

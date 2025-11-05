@@ -63,20 +63,28 @@ Done
                 - to parse form data into "req.body"
                 - can set this up using:
                     app.use(express.urlencoded({ extended: true }));
+Done
 
 8. in "router.post()"
     a. take contents of form submission
     b. push them into messages array as object
         - ie:
             messages.push({ text: messageText, user: messageUser, added: new Date() });
+Done
 
 9. at the end of "router.post()"
     a. use "res.redirect("/")" to send users back to index
         - after submitting new message
+Done
 
 10. should be able to visit "/new" and fill out and submit form
     a. should show up on index page
     b. add link to "/new" on index page
+Done
 
 11. add "open" button/link next to each message
     a. that opens new page with message details
+        a1. on index page, should show:
+            - title, user, date added
+        a2. on "open" click, should show:
+            - all information including message text

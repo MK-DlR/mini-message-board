@@ -28,7 +28,21 @@ router.get("/new", (req, res) => {
 
 // "/new" to handle form submission
 router.post("/new", (req, res) => {
-  // handle the form data
+  console.log(req.body.title);
+  console.log(req.body.text);
+  console.log(req.body.user);
+
+  // create a new message object
+  const newMessage = {
+    title: req.body.title,
+    text: req.body.text,
+    user: req.body.user,
+    added: new Date().toLocaleDateString(),
+  };
+
+  // add to messages array
+  messages.push(newMessage);
+
   res.redirect("/");
 });
 
