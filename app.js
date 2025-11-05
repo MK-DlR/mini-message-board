@@ -12,6 +12,9 @@ app.set("view engine", "ejs");
 // middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 
+// makes files in public folder available to front end
+app.use(express.static("public"));
+
 // use router for all routes
 app.use("/", indexRouter);
 

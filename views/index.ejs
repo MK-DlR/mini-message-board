@@ -9,11 +9,12 @@
         <h2>All Messages</h2>
 
         <% if (messages.length > 0) { %>
-            <% messages.forEach(message => { %>
+            <% messages.forEach((message, index) => { %>
 
                 <h3 class="title"><%= message.title %></h3>
-                <p class="text"><%= message.text %></p>
                 <h4 class="user">By <%= message.user %> on <%= message.added %></h4>
+
+                <a href="/message/<%= index %>" class="button">Details</a>
 
             <% }) %>
         <% } else { %>

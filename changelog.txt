@@ -1,5 +1,7 @@
 11/5/25:
 
+- Add styling
+- Create msg-detail.ejs to show full message details
 - Add form submission functionality
 - Create index.js and update index.ejs
 - Create new message form

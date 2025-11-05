@@ -1,3 +1,4 @@
+// index.js
 const express = require("express");
 const router = express.Router();
 
@@ -21,12 +22,24 @@ router.get("/", (req, res) => {
   res.render("index", { title: "Home", messages: messages });
 });
 
-// "/new" pointing to "form" template
+// handle /new pointing to form template
 router.get("/new", (req, res) => {
   res.render("form", { title: "New Message" });
 });
 
-// "/new" to handle form submission
+// handle opening full message details
+router.get("/message/:id", (req, res) => {
+  const messageID = parseInt(req.params.id);
+  const message = messages[messageID];
+
+  if (message === undefined) {
+    res.redirect("/404");
+  } else {
+    res.render("msg-detail", { title: "Message Details", message: message });
+  }
+});
+
+// handle new message form submission
 router.post("/new", (req, res) => {
   console.log(req.body.title);
   console.log(req.body.text);

@@ -88,3 +88,8 @@ Done
             - title, user, date added
         a2. on "open" click, should show:
             - all information including message text
+Done
+
+notes:
+    - add basic styling
+    - make sure messages added stay on refresh

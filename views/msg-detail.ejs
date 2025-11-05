@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+<body>
+
+    <%- include("./partials/nav.ejs") %>
+
+    <div class="messages content">
+        <h3 class="title"><%= message.title %></h3>
+        <h4 class="user">By <%= message.user %> on <%= message.added %></h4>
+        <p class="text"><%= message.text %></p>
+    </div>
+
+</body>
+</html>
