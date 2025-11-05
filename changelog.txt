@@ -1,5 +1,6 @@
 11/5/25:
 
+- Deployed via Render
 - Update placeholder messages
 - Add styling
 - Create msg-detail.ejs to show full message details
