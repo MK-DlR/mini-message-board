@@ -4,15 +4,15 @@ const router = express.Router();
 
 const messages = [
   {
-    title: "title",
-    text: "text",
-    user: "user",
+    title: "Project Deployment",
+    text: "All done! Deploying an Express project for the first time.",
+    user: "MK-DlR",
     added: new Date().toLocaleDateString(),
   },
   {
-    title: "title2",
-    text: "text2",
-    user: "user2",
+    title: "Project Time",
+    text: "Working on a project that uses Express.",
+    user: "MK-DlR",
     added: new Date().toLocaleDateString(),
   },
 ];
