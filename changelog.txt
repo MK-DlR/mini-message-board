@@ -1,0 +1,7 @@
+11/5/25:
+
+- Create 404 error page
+- Create basic navigation header template
+- Create filler messages to display on index
+- Basic folder and file set up
+- Install express and ejs

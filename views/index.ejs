@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+<body>
+
+    <%- include("./partials/nav.ejs") %>
+
+    <div class="messages content">
+        <h2>All Messages</h2>
+
+        <% if (messages.length > 0) { %>
+            <% messages.forEach(message => { %>
+
+                <h3 class="title"><%= message.title %></h3>
+                <p class="text"><%= message.text %></p>
+                <h4 class="user">By <%= message.user %> on <%= message.added %></h4>
+
+            <% }) %>
+        <% } else { %>
+            <p>There are no messages to display.</p>
+        <% } %>
+    </div>
+
+</body>
+</html>

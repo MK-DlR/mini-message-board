@@ -1,0 +1,80 @@
+1. set up basic express app
+    a. install:
+        a1. express
+        a2. ejs
+    b. set up basic index route
+        b1. run server
+    c. create necessary folders and files
+Done
+
+2. 2 routes:
+    a. "/"
+        a1. index
+    b. "/new"
+        b1. new message form
+Done
+
+3. create array at top of index router ("messages")
+    a. include some sample messages
+        a1. text
+        a2. user
+        a3. added (new Date())
+Done
+
+4. in index template (in "views")
+    a. loop through messages array
+        a1. display user, text, and date added
+        a2. make sure to make messages available to template
+            - include it in "res.render" locals object, ie:
+                res.render("index", { title: "Mini Messageboard", messages: messages })
+Done
+
+5. set up new message form
+    a. in the router
+        a1. add "router.get()" for the "/new" route"
+            - point it to template named "form"
+    b. in views directory
+        b1. create form template
+            - add heading, 2 inputs (author + message text), submit button
+        b2. to have form make a network request:
+            - define it with both a method and action:
+                <form method="POST" action="/new">
+                    put your inputs and buttons in here!
+                </form>
+
+6. with form set up, clicking submit button should
+    a. send POST request to the url specified by action attribute
+    b. go back to index router
+        b1. add "router.post()" for "/new"
+
+7. to get and use data from form
+    a. will need to access contents of form 
+        a1. inside "router.post()"
+        a2. as object called "req.body"
+        a3. individual fields inside body object
+            - named according to "name" attribute of inputs
+            - ie: value of "<input name="messageText">"
+                - will show up as "req.body.messageText"
+                - inside "router.post" function
+        a4. need to use app level middleware
+            - called "express.urlencoded()"
+                - to parse form data into "req.body"
+                - can set this up using:
+                    app.use(express.urlencoded({ extended: true }));
+
+8. in "router.post()"
+    a. take contents of form submission
+    b. push them into messages array as object
+        - ie:
+            messages.push({ text: messageText, user: messageUser, added: new Date() });
+
+9. at the end of "router.post()"
+    a. use "res.redirect("/")" to send users back to index
+        - after submitting new message
+
+10. should be able to visit "/new" and fill out and submit form
+    a. should show up on index page
+    b. add link to "/new" on index page
+
+11. add "open" button/link next to each message
+    a. that opens new page with message details
