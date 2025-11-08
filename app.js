@@ -1,5 +1,7 @@
 // app.js
 
+require("dotenv").config(); // MUST BE FIRST!
+
 const express = require("express");
 // use express as app
 const app = express();

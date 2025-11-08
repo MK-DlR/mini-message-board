@@ -1,25 +1,27 @@
-// index.js
+// routes/index.js
 const express = require("express");
 const router = express.Router();
+const { Pool } = require("pg");
 
-const messages = [
-  {
-    title: "Project Deployment",
-    text: "All done! Deploying an Express project for the first time.",
-    user: "MK-DlR",
-    added: new Date().toLocaleDateString(),
+// create database connection pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
   },
-  {
-    title: "Project Time",
-    text: "Working on a project that uses Express.",
-    user: "MK-DlR",
-    added: new Date().toLocaleDateString(),
-  },
-];
+});
 
-// home page
-router.get("/", (req, res) => {
-  res.render("index", { title: "Home", messages: messages });
+// home page - get all messages from database
+router.get("/", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM messages ORDER BY added DESC"
+    );
+    res.render("index", { title: "Home", messages: result.rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
 });
 
 // handle /new pointing to form template
@@ -28,35 +30,49 @@ router.get("/new", (req, res) => {
 });
 
 // handle opening full message details
-router.get("/message/:id", (req, res) => {
+router.get("/message/:id", async (req, res) => {
   const messageID = parseInt(req.params.id);
-  const message = messages[messageID];
-
-  if (message === undefined) {
-    res.redirect("/404");
-  } else {
-    res.render("msg-detail", { title: "Message Details", message: message });
+  try {
+    const result = await pool.query("SELECT * FROM messages WHERE id = $1", [
+      messageID,
+    ]);
+    if (result.rows.length === 0) {
+      res.redirect("/404");
+    } else {
+      res.render("msg-detail", {
+        title: "Message Details",
+        message: result.rows[0],
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
   }
 });
 
 // handle new message form submission
-router.post("/new", (req, res) => {
-  console.log(req.body.title);
-  console.log(req.body.text);
-  console.log(req.body.user);
+router.post("/new", async (req, res) => {
+  const { title, text, user } = req.body;
 
-  // create a new message object
-  const newMessage = {
-    title: req.body.title,
-    text: req.body.text,
-    user: req.body.user,
-    added: new Date().toLocaleDateString(),
-  };
+  // Server-side validation
+  if (!title || !text || !user) {
+    return res.status(400).send("All fields are required");
+  }
 
-  // add to messages array
-  messages.push(newMessage);
+  if (text.length > 500 || user.length > 100) {
+    return res.status(400).send("Input too long");
+  }
 
-  res.redirect("/");
+  try {
+    await pool.query(
+      "INSERT INTO messages (text, username, title) VALUES ($1, $2, $3)",
+      [text, user, title]
+    );
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
 });
 
 module.exports = router;

@@ -12,9 +12,9 @@
             <% messages.forEach((message, index) => { %>
 
                 <h3 class="title"><%= message.title %></h3>
-                <h4 class="user">By <%= message.user %> on <%= message.added %></h4>
+                <h4 class="user">By <%= message.username %> on <%= new Date(message.added).toLocaleDateString() %></h4>
 
-                <a href="/message/<%= index %>" class="button">Details</a>
+                <a href="/message/<%= message.id %>" class="button">Details</a>
 
             <% }) %>
         <% } else { %>
